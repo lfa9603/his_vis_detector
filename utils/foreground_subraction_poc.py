@@ -8,7 +8,7 @@ if not capture.isOpened():
     print('Unable to open: ;;')
     exit(0)
 ## [capture]
-fgbg = cv2.createBackgroundSubtractorMOG()
+fgbg = cv2.createBackgroundSubtractorMOG2()
 
 while True:
     ret, frame = capture.read()
@@ -17,7 +17,7 @@ while True:
 
     ## [apply]
     #update the background model
-    fgMask = fgbg.apply(frame)
+    fgMask = fgbg.apply(frame, frame, 0.15)
     ## [apply]
 
     ## [display_frame_number]
