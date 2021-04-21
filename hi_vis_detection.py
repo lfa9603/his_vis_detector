@@ -7,7 +7,7 @@ from assignment.human_detection import findHumanContours
 
 
 
-capture = cv2.VideoCapture(0)
+capture = cv2.VideoCapture('./output1.avi')
 if not capture.isOpened():
     print('Unable to open: ;;')
     exit(0)
@@ -60,15 +60,19 @@ while True:
     for vest_contour in contours:
         for human_contour in human_contours:
             if Contours.is_countour_within(vest_contour, human_contour):
-                print('AAAAA  CIAO')
                 area_percentage = cv2.contourArea(vest_contour) / cv2.contourArea(human_contour)
                 if (area_percentage > 0.1):
                     Contours.drawContours([vest_contour], frame=output)
                     Contours.drawContours([human_contour], frame=output, color=(0, 0, 255))
 
+            else:
+                if (cv2.contourArea(human_contour) > 20000):
+                    Contours.drawContours([human_contour], frame=output, color=(255, 255, 0))
+
 
     # cv2.imshow('Masking the background', cv2.bitwise_and(output, output, mask=foreground_mask))
     cv2.imshow("HSV Frane and non-foreground-masked background", np.hstack([hsv_frame, output]))
+    cv2.imshow("HSV Frane and non-foreground-masked sd", np.hstack([hsv_frame, output]))
     # cv2.imshow("HSV Frane and non-foreground-masked background", np.hstack([human_contour_fg_mask]))
 
     keyboard = cv2.waitKey(30)

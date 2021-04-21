@@ -1,16 +1,20 @@
 import cv2
 import numpy as np
 from assignment.Contours import Contours
-
+from assignment.utils.wait_for_photo import wait_for_photo
 
 def findHumanContours(frame, background_subtractor):
-    fgMask = background_subtractor.apply(frame, frame, 0.15)
+    fgMask = background_subtractor.apply(frame, frame, 0.2)
     kernel = np.ones((15, 15), np.uint8)
     closing = cv2.morphologyEx(fgMask, cv2.MORPH_CLOSE, kernel)
 
     contours, _hierarchy = cv2.findContours(closing, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     contours = list(filter(lambda c: cv2.contourArea(c) > 1000, contours))
-    Contours.drawContours(contours=contours, frame=fgMask)
+    Contours.drawContours(contours=contours, frame=frame)
+    wait_for_photo(closing)
+    wait_for_photo(frame)
+
+    # cv2.imshow('dfdf', np.hstack([frame]))
 
     return contours, fgMask
 
