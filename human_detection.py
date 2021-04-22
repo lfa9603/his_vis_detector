@@ -10,9 +10,9 @@ def findHumanContours(frame, background_subtractor):
 
     contours, _hierarchy = cv2.findContours(closing, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     contours = list(filter(lambda c: cv2.contourArea(c) > 1000, contours))
-    Contours.drawContours(contours=contours, frame=frame)
-    wait_for_photo(closing)
-    wait_for_photo(frame)
+    # Contours.drawContours(contours=contours, frame=frame)
+    # wait_for_photo(closing)
+    # wait_for_photo(frame)
 
     # cv2.imshow('dfdf', np.hstack([frame]))
 

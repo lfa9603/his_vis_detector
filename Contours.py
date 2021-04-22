@@ -43,4 +43,4 @@ class Contours:
                 continue
 
             cv2.drawContours(frame, contour, -1, color, 1)
-            cv2.rectangle(frame, (leftmost[0], topmost[1]), (rightmost[0], bottommost[1]), (0, 255, 0), 2)
+            cv2.rectangle(frame, (leftmost[0], topmost[1]), (rightmost[0], bottommost[1]), color, 2)
